@@ -1,0 +1,71 @@
+DROP TABLE IF EXISTS `test`.`module`;
+CREATE TABLE  `test`.`module` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(15) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Name_Unique` (`name`),
+  UNIQUE KEY `code_Unique` (`code`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `test`.`moduledata`;
+CREATE TABLE  `test`.`moduledata` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `fieldcode` varchar(15) NOT NULL,
+  `createtime` datetime DEFAULT NULL,
+  `updatetime` datetime DEFAULT NULL,
+  `deleted` varchar(1) DEFAULT NULL,
+  `updatedby` varchar(45) DEFAULT NULL,
+  `fieldvalue` varchar(45) DEFAULT NULL,
+  `modulecode` varchar(15) NOT NULL,
+  `modulerowid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_module_id` (`modulecode`) USING BTREE,
+  KEY `FK_moduledata` (`fieldcode`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `test`.`modulefield`;
+CREATE TABLE  `test`.`modulefield` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `fieldcode` varchar(15) NOT NULL,
+  `fieldname` varchar(45) NOT NULL,
+  `modulecode` varchar(15) NOT NULL,
+  `deleted` varchar(1) DEFAULT NULL,
+  `createdate` datetime DEFAULT NULL,
+  `updatedate` datetime DEFAULT NULL,
+  `updatedby` varchar(45) DEFAULT NULL,
+  `fieldType` varchar(10) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Mod_Fld_Unique` (`fieldcode`,`modulecode`),
+  UNIQUE KEY `Mod_Fld_Name_Unq` (`fieldname`,`modulecode`),
+  KEY `FK_ModuleField` (`modulecode`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `test`.`refdata`;
+CREATE TABLE  `test`.`refdata` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(15) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `category` varchar(10) NOT NULL,
+  `createtime` datetime DEFAULT NULL,
+  `updatetime` datetime DEFAULT NULL,
+  `deleted` varchar(1) DEFAULT NULL,
+  `updatedby` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Cat_code_unq` (`code`,`category`),
+  UNIQUE KEY `cat_name_unq` (`name`,`category`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `test`.`refdatatype`;
+CREATE TABLE  `test`.`refdatatype` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(15) NOT NULL,
+  `name` varchar(45) NOT NULL,
+  `deleted` varchar(1) DEFAULT NULL,
+  `createtime` datetime DEFAULT NULL,
+  `updatetime` datetime DEFAULT NULL,
+  `updatedby` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `Name_Unq` (`name`),
+  UNIQUE KEY `code_unq` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
